@@ -1,0 +1,50 @@
+/*CSS Header*/
+
+header h1{
+	
+	margin-left : 20px;
+	
+}
+
+.menu{
+	
+margin-left:0px;
+
+}
+
+.menu li{
+	
+	display:inline;
+	
+}
+
+.menu li a{
+	
+	margin-right: -3px;
+	padding:12px 80px;
+	background-color:#3F8EBF;
+	color:white;
+	
+}
+
+.menu li a:hover{
+	
+	background-color:#4D6C80;
+	
+}
+
+/*CSS Footer*/
+
+.footer{
+	
+	background-color : #3F8EBF;
+	
+}
+
+.footer h5 {
+	
+	color:white;
+	padding: 10px 40px;
+	
+}
+
