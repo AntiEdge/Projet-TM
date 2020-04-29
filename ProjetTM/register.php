@@ -4,9 +4,7 @@ $titre="Enregistrement";
 include("includes/identifiants.php");
 include("includes/debut.php");
 include("includes/header.php");
-echo '<p><i>Vous êtes ici</i> : <a href="./index.php">Index du forum</a> --> Enregistrement';
-
-if ($id!=0) erreur(ERR_IS_CO);
+echo '<p><i>Vous êtes ici</i> : <a href="./index.php">Index</a> --> Enregistrement';
 ?>
 
 <?php
@@ -48,7 +46,6 @@ else //On est dans le cas traitement
 
     //On récupère les variables
     $i = 0;
-    $temps = time(); 
     $pseudo=$_POST['pseudo'];
     $email = $_POST['email'];
     $pass = md5($_POST['password']);
@@ -82,7 +79,7 @@ else //On est dans le cas traitement
     //Vérification de l'adresse email
 
     //Il faut que l'adresse email n'ait jamais été utilisée
-    $query=$db->prepare('SELECT COUNT(*) AS nbr FROM forum_membres WHERE membre_email =:mail');
+    $query=$db->prepare('SELECT COUNT(*) AS nbr FROM membres WHERE membre_email =:mail');
     $query->bindValue(':mail',$email, PDO::PARAM_STR);
     $query->execute();
     $mail_free=($query->fetchColumn()==0)?1:0;
@@ -103,16 +100,15 @@ else //On est dans le cas traitement
    if ($i==0)
    {
 	echo'<h1>Inscription terminée</h1>';
-        echo'<p>Bienvenue '.stripslashes(htmlspecialchars($_POST['pseudo'])).' vous êtes maintenant inscrit sur le forum</p>
+        echo'<p>Bienvenue '.stripslashes(htmlspecialchars($_POST['pseudo'])).' vous êtes maintenant inscrit sur notre site</p>
 	<p>Cliquez <a href="./index.php">ici</a> pour revenir à la page d accueil</p>';
    
         $query=$db->prepare('INSERT INTO membres (membre_pseudo, membre_mdp, membre_email,             
 		membre_date_inscription)
-        VALUES (:pseudo, :pass, :email, :temps)');
+        VALUES (:pseudo, :pass, :email, NOW())');
 	$query->bindValue(':pseudo', $pseudo, PDO::PARAM_STR);
 	$query->bindValue(':pass', $pass, PDO::PARAM_STR);
 	$query->bindValue(':email', $email, PDO::PARAM_STR);
-	$query->bindValue(':temps', $temps, PDO::PARAM_INT);
         $query->execute();
 
 	//Et on définit les variables de sessions

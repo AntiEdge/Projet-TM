@@ -7,39 +7,38 @@ $titre="Connexion";
 include("includes/identifiants.php");
 include("includes/debut.php");
 include("includes/header.php");
-echo'<i>Vous êtes ici : </i><a href ="./index.php">Index du forum</a>';
+echo'<i>Vous êtes ici : </i><a href ="./index.php">Index</a>';
 
 ?>
 
 <?php
 echo '<h1>Connexion</h1>';
-if ($id!=0) erreur(ERR_IS_CO);
+//if ($id!=0) erreur(ERR_IS_CO);
 ?>
 
-<form method="post" action="connexion.php">
-	<fieldset>
-	<legend>Connexion</legend>
-	<p>
-	<label for="pseudo">Pseudo :</label><input name="pseudo" type="text" id="pseudo" /><br />
-	<label for="password">Mot de Passe :</label><input type="password" name="password" id="password" />
-	</p>
-	</fieldset>
-	<p><input type="submit" value="Connexion" /></p></form>
-	<a href="./register.php">Pas encore inscrit ?</a>
-	 
-</html>
-
 <?php
-//On reprend la suite du code
-
-if(isset($_POST['submit'])){
-//else{
-	
-	$username = $_POST['pseudo'];
-	$password = $_POST['password'];
+if (!isset($_POST['pseudo'])) //On est dans la page de formulaire
+{
+    echo '<form method="post" action="connexion.php">
+    <fieldset>
+    <legend>Connexion</legend>
+    <p>
+    <label for="pseudo">Pseudo :</label><input name="pseudo" type="text" id="pseudo" /><br />
+    <label for="password">Mot de Passe :</label><input type="password" name="password" id="password" />
+    </p>
+    </fieldset>
+    <p><input type="submit" value="Connexion" /></p></form>
+    <a href="./register.php">Pas encore inscrit ?</a>
+     
+    </div>
+    </body>
+    </html>';
+}
+else
+{
 
     $message='';
-    if ($username&&$password) //Oublie d'un champ
+    if (empty($_POST['pseudo']) || empty($_POST['password']) ) //Oublie d'un champ
     {
         $message = '<p>une erreur s\'est produite pendant votre identification.
 	Vous devez remplir tous les champs</p>
@@ -47,7 +46,7 @@ if(isset($_POST['submit'])){
     }
     else //On check le mot de passe
     {
-        $query=$projettm->prepare('SELECT membre_mdp, membre_id, membre_pseudo
+        $query=$db->prepare('SELECT membre_mdp, membre_id, membre_pseudo
         FROM membres WHERE membre_pseudo = :pseudo');
         $query->bindValue(':pseudo',$_POST['pseudo'], PDO::PARAM_STR);
         $query->execute();
@@ -83,3 +82,4 @@ if(isset($_POST['submit'])){
 echo '<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>';
 include("includes/footer.php");
 ?>
+</html>
