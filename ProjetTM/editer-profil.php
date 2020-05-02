@@ -23,6 +23,8 @@ if (empty($utilisateur_id)) {
 
 }
 
+//Sélectionne le profil de l'id de session
+
 $req = $db->prepare("SELECT * FROM membres WHERE membre_id = ?");
 $req->execute(array($utilisateur_id));
 $voir_utilisateur = $req->fetch();
@@ -37,6 +39,8 @@ if(!isset($voir_utilisateur['membre_id'])){
 if(!empty($_POST)){
 
 	if(isset($_POST['modifier'])){
+
+		//Traitement des valeurs rentrées dans la form
 
 		$pseudo_erreur1 = NULL;
 	    $pseudo_erreur2 = NULL;
@@ -91,6 +95,8 @@ if(!empty($_POST)){
 	 
 	    if ($i==0)
 	    {
+	    	//Update le membre avec les nouvelles données
+
 	        $query=$db->prepare('UPDATE membres SET membre_pseudo = ?, membre_email = ? WHERE membre_id = ?');
 	        $query->execute(array($pseudo,$email,$_SESSION['id']));
 	        $query->CloseCursor();
@@ -118,6 +124,8 @@ if(!empty($_POST)){
 	<?php
 		require_once("includes/menu.php"); //Menu bar
 	?>
+
+	<?php //Formulaire de modification de profil?>
 
 	<div class="container">
   		<div class="row">

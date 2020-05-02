@@ -23,6 +23,8 @@ if (empty($utilisateur_id)) {
 
 }
 
+//Récupère le membre dont l'id est égal à l'id de session
+
 $req = $db->prepare("SELECT * FROM membres WHERE membre_id = ?");
 $req->execute(array($utilisateur_id));
 $voir_utilisateur = $req->fetch();
@@ -41,6 +43,8 @@ if(!isset($voir_utilisateur['membre_id'])){
 	<?php
 		require_once("includes/menu.php"); //Menu bar
 	?>
+
+	<?php //Affiche le profil du membre?>
 
 	<div class="container">
   		<div class="row">

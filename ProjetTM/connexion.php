@@ -7,6 +7,7 @@ $titre="Connexion";
 require_once("includes/identifiants.php");
 require_once("includes/debut.php");
 
+//Vérifie si l'utilisateur est connecté
 if (isset($_SESSION['id'])) {
 
 	erreur(ERR_IS_CO);

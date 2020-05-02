@@ -101,7 +101,7 @@ if(!empty($_POST)){
 
 	}elseif(isset($_POST['user-bloquer'])){
 
-	    $query=$db->prepare('SELECT id FROM relation WHERE (id_receveur = :id1 AND id_demandeur = :id2) OR (id_receveur = :id2 AND id_demandeur = :id1)');
+	    /*$query=$db->prepare('SELECT id FROM relation WHERE (id_receveur = :id1 AND id_demandeur = :id2) OR (id_receveur = :id2 AND id_demandeur = :id1)');
 	    $query->execute(array('id1' => $voir_utilisateur['membre_id'], 'id2' => $_SESSION['id']));
 	    $verif_relation=$req->fetch();
 
@@ -119,11 +119,22 @@ if(!empty($_POST)){
 
 	    header('location: ./membre.php');
 	    //header('location : ./voirprofil.php?id=' . $voir_utilisateur['membre_id']);
+	    exit;*/
+
+	    $query=$db->prepare("DELETE FROM relation WHERE (id_receveur = ? AND id_demandeur = ?) OR (id_receveur = ? AND id_demandeur = ?)");
+	    $query->execute(array($voir_utilisateur['membre_id'], $_SESSION['id'], $_SESSION['id'], $voir_utilisateur['membre_id']));
+
+	    $query=$db->prepare('INSERT INTO relation (id_demandeur, id_receveur, statut, id_bloqueur) VALUES (?,?,?,?)');
+	    $query->execute(array($_SESSION['id'],$voir_utilisateur['membre_id'],3,$voir_utilisateur['membre_id']));
+	    $query->CloseCursor();
+
+	     header('location: ./membre.php');
+	    //header('location : ./voirprofil.php?id=' . $voir_utilisateur['membre_id']);
 	    exit;
 
 	}elseif(isset($_POST['user-debloquer'])){
 
-	    $query=$db->prepare('SELECT id, statut FROM relation WHERE (id_receveur = :id1 AND id_demandeur = :id2) OR (id_receveur = :id2 AND id_demandeur = :id1)');
+	    /*$query=$db->prepare('SELECT id, statut FROM relation WHERE (id_receveur = :id1 AND id_demandeur = :id2) OR (id_receveur = :id2 AND id_demandeur = :id1)');
 	    $query->execute(array('id1' => $voir_utilisateur['membre_id'], 'id2' => $_SESSION['id']));
 	    $verif_relation=$req->fetch();
 
@@ -139,6 +150,14 @@ if(!empty($_POST)){
 			    $query->execute(array( NULL, $verif_relation['id']));
 			}
 	    }
+
+	    header('location: ./membre.php');
+	    //header('location : ./voirprofil.php?id=' . $voir_utilisateur['membre_id']);
+	    exit;*/
+
+
+	    $query=$db->prepare("DELETE FROM relation WHERE (id_receveur = ? AND id_demandeur = ?) OR (id_receveur = ? AND id_demandeur = ?)");
+	    $query->execute(array($voir_utilisateur['membre_id'], $_SESSION['id'], $_SESSION['id'], $voir_utilisateur['membre_id']));
 
 	    header('location: ./membre.php');
 	    //header('location : ./voirprofil.php?id=' . $voir_utilisateur['membre_id']);
@@ -177,9 +196,9 @@ if(!empty($_POST)){
 						}elseif(isset($voir_utilisateur['statut']) && $voir_utilisateur['id_receveur'] == $_SESSION['id'] && !isset($voir_utilisateur['id_bloqueur']) && $voir_utilisateur['statut']<>2){ ?>
 							<div>Vous avez une demande à accepter</div>
 						<?php
-						}elseif(isset($voir_utilisateur['statut']) && $voir_utilisateur['id_receveur'] == 2 && !isset($voir_utilisateur['id_bloqueur'])){?>
+						}elseif(isset($voir_utilisateur['statut']) && $voir_utilisateur['statut'] == 2 && !isset($voir_utilisateur['id_bloqueur'])){?>
 
-							<div>Vous êtes amis</div>>
+							<div>Vous êtes amis</div>
 
 						<?php	
 						}

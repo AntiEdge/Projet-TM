@@ -9,12 +9,15 @@ require_once("includes/debut.php");
 
 if (isset($_SESSION['id'])) {
 
+	//Récupères tout les membres sauf celui égal à l'id de session
+
 	$afficher_membre = $db->prepare("SELECT * FROM membres WHERE membre_id <> ?");
 	$afficher_membre->execute(array($_SESSION['id']));
 
 }
 else
 {
+	//Si il n'y a pas d'id alors ça sélectionne tout les membres
 
 	$afficher_membre = $db->prepare("SELECT * FROM membres");
 	$afficher_membre->execute();
@@ -28,6 +31,8 @@ else
 	<?php
 		require_once("includes/menu.php"); //Menu bar
 	?>
+
+	<?php //Affiche les membres dans des divs différentes?>
 
 	<div class="container">
   		<div class="row">
