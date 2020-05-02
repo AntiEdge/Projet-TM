@@ -1,0 +1,63 @@
+/*CSS Nav Bar*/
+
+.bg-light {
+
+    background-color: #2980B9 !important;
+    box-shadow: 0 5px 5px rgba( 0, 0, 0, .3);
+
+}
+
+.navbar-light .navbar-nav .nav-link {
+
+    color: #ecf0f1;
+
+}
+
+.navbar-light .navbar-nav .nav-link:hover, .nav-link:focus {
+
+    color: white;
+    padding-bottom: 1px;
+    text-decoration: none;
+
+}
+
+/*CSS Membres*/
+
+.membres--corps {
+
+	background: white;
+	text-align: center;
+	box-shadow: 5px 5px 15px rgba( 0, 0 , 0, .3);
+	border-radius: 10px;
+	padding: 10px;
+	margin: 15px 0;
+
+}
+
+.membres-btn {
+
+	margin: 20px 0;
+
+}
+
+.membres-btn-voir {
+
+	background: #2980B9;
+	color: white;
+	text-decoration: none;
+	outline: none;
+	padding: 5px 20px;
+	border-radius: 10px;
+	transition: ease-in .5s all;
+
+}
+
+.membres-btn-voir:hover {
+
+	transition: ease-out .5s all;
+	color: white;
+	text-decoration: none;
+	background: rgba(41,128,185,.9);
+
+}
+

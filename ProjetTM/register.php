@@ -1,26 +1,36 @@
 <?php
 session_start();
 $titre="Enregistrement";
-include("includes/identifiants.php");
-include("includes/debut.php");
-include("includes/header.php");
-echo '<p><i>Vous êtes ici</i> : <a href="./index.php">Index</a> --> Enregistrement';
+require_once("includes/identifiants.php");
+require_once("includes/debut.php");
+
+if (isset($_SESSION['id'])) {
+
+    erreur(ERR_IS_CO);
+
+}
+
 ?>
 
+<body>
+
 <?php
+
+require_once("includes/menu.php");
+
 if (empty($_POST['pseudo'])) // Si on la variable est vide, on peut considérer qu'on est sur la page de formulaire
 {
-	echo '<h1>Inscription 1/2</h1>';
+	echo '<h1>Inscription</h1>';
 	echo '<form method="post" action="register.php" enctype="multipart/form-data">
 	
 	<fieldset><legend>Identifiants</legend>
-	<label for="pseudo">* Pseudo :</label>  <input name="pseudo" type="text" id="pseudo" /> (le pseudo doit contenir entre 3 et 15 caractères)<br />
-	<label for="password">* Mot de Passe :</label><input type="password" name="password" id="password" /><br />
-	<label for="confirm">* Confirmer le mot de passe :</label><input type="password" name="confirm" id="confirm" />
+	<label for="pseudo">* Pseudo :</label>  <input name="pseudo" type="text" id="pseudo" placeholder=" Pseudo"/> (le pseudo doit contenir entre 3 et 15 caractères)<br />
+	<label for="password">* Mot de Passe : </label><input type="password" name="password" id="password" placeholder=" Mot de passe"/><br />
+	<label for="confirm">* Confirmer le mot de passe : </label><input type="password" name="confirm" id="confirm" placeholder=" Mot de passe"/>
 	</fieldset>
 	
 	<fieldset><legend>Contacts</legend>
-	<label for="email">* Votre adresse Mail :</label><input type="text" name="email" id="email" /><br />
+	<label for="email">* Votre adresse Mail : </label><input type="text" name="email" id="email" placeholder=" E-Mail"/><br />
 	</fieldset>
 
 	<p>Les champs précédés d un * sont obligatoires</p>
@@ -37,12 +47,6 @@ else //On est dans le cas traitement
     $mdp_erreur = NULL;
     $email_erreur1 = NULL;
     $email_erreur2 = NULL;
-    $msn_erreur = NULL;
-    $signature_erreur = NULL;
-    $avatar_erreur = NULL;
-    $avatar_erreur1 = NULL;
-    $avatar_erreur2 = NULL;
-    $avatar_erreur3 = NULL;
 
     //On récupère les variables
     $i = 0;
@@ -132,9 +136,11 @@ else //On est dans le cas traitement
 }
 ?>
 
+</body>
+
 <?php
 echo '<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>';
-include("includes/footer.php");
+require_once("includes/footer.php");
 ?>
 
 </html>

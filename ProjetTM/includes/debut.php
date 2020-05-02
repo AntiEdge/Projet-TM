@@ -1,20 +1,26 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" >
-<head>
-<?php
-//Si le titre est indiqué, on l'affiche entre les balises <title>
-echo (!empty($titre))?'<title>'.$titre.'</title>':'<title> Forum </title>';
-?>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<link rel="stylesheet" media="screen" type="text/css" title="Design" href="../projettm/styles/bootstrap.css" />
-</head>
+<!DOCTYPE html>
+<html lang="fr" >
+	<head>
+		<?php
+		//Si le titre est indiqué, on l'affiche entre les balises <title>
+		echo (!empty($titre))?'<title>'.$titre.'</title>':'<title> Projet </title>';
+		?>
+
+		<meta charset="utf-8">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+		<link rel="stylesheet" href="./styles/styles.css" />
+
+	</head>
 <?php
 
 //Attribution des variables de session
-$id=(isset($_SESSION['id']))?(int) $_SESSION['id']:0;
 $pseudo=(isset($_SESSION['pseudo']))?$_SESSION['pseudo']:'';
 
 //On inclue les 2 pages restantes
-include("./includes/functions.php");
-include("./includes/constantes.php");
+require_once("./includes/functions.php");
+require_once("./includes/constantes.php");
 ?>

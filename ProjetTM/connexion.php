@@ -4,16 +4,25 @@ session_start();
 
 $titre="Connexion";
 
-include("includes/identifiants.php");
-include("includes/debut.php");
-include("includes/header.php");
-echo'<i>Vous êtes ici : </i><a href ="./index.php">Index</a>';
+require_once("includes/identifiants.php");
+require_once("includes/debut.php");
+
+if (isset($_SESSION['id'])) {
+
+	erreur(ERR_IS_CO);
+
+}
 
 ?>
 
+<body>
+
+	<?php
+		require_once("includes/menu.php"); //Menu bar
+	?>
+
 <?php
 echo '<h1>Connexion</h1>';
-//if ($id!=0) erreur(ERR_IS_CO);
 ?>
 
 <?php
@@ -55,10 +64,8 @@ else
 		{
 			$_SESSION['pseudo'] = $data['membre_pseudo'];
 			$_SESSION['id'] = $data['membre_id'];
-			$message = '<p>Bienvenue '.$data['membre_pseudo'].', 
-				vous êtes maintenant connecté!</p>
-				<p>Cliquez <a href="./index.php">ici</a> 
-				pour revenir à la page d accueil</p>';  
+			header('location: ./index.php');
+			exit;
 		}
 		else // Acces pas OK !
 		{
@@ -78,8 +85,11 @@ else
 
 ?>
 
+</body>
+
 <?php
 echo '<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>';
-include("includes/footer.php");
+require_once("includes/footer.php");
 ?>
+
 </html>
