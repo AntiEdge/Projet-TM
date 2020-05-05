@@ -21,6 +21,6 @@
 $pseudo=(isset($_SESSION['pseudo']))?$_SESSION['pseudo']:'';
 
 //On inclue les 2 pages restantes
-require_once("./includes/functions.php");
-require_once("./includes/constantes.php");
+require_once("functions.php");
+require_once("constantes.php");
 ?>

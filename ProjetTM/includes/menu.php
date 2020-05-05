@@ -2,6 +2,7 @@
 	  <a class="navbar-brand" href="#"><img src=".\styles\corona.jpg" width="30" height="30" alt=""></a>
 	  <a class="navbar-brand" href="index.php">Acceuil</a>
 	  <a class="navbar-brand" href="membre.php">Membre</a>
+	  <a class="navbar-brand" href="map.php">Map</a>
 	  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	    <span class="navbar-toggler-icon"></span>
 	  </button>
@@ -32,6 +33,9 @@
 	    					</li>
 	    					<li>
 	    						<a href="demandes-amis.php">Demande d'ami</a>
+	    					</li>
+	    					<li>
+	    						<a href="tchat.php">Tchat</a>
 	    					</li>
 	    					<li>
 	    						<a href="deconnexion.php">Se déconnecter</a>
