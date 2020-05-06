@@ -39,6 +39,7 @@ if (isset($_SESSION['id'])) {
 				</span>
 				<div style="font-size: 10px; text-align: right; margin-top: 10px;">Par <?= $_SESSION['membre_pseudo'] ?>, le <?= $date_message ?></div>
 			</div>
+			header("location : ../messagerie.php");
 
 			<script>
 				document.getElementById('msg').scrollTop = document.getElementById('msg').scrollHeight;
