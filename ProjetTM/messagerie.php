@@ -36,6 +36,8 @@ $see_tchat = $req->fetchAll();
 				<h3><?= $pseudo_receveur ?></h3>
 				<div id="msg" style="border: 1px solid:#cccccc; padding: 10px 0; border-radius: 5px; overflow: scroll; height: 400px; margin: 10px 0; background: white;">
 					<?php
+
+					//Il faut vérifier qu'il n'y ait que les messages entre les 2 personnes
 					foreach ($see_tchat as $st) {
 						$date_message = date_create($st["date_message"]);
 						$date_message = date_format($date_message, 'd M Y à H:i:s');
@@ -184,7 +186,21 @@ $see_tchat = $req->fetchAll();
 
 		});
 
-	</script>?>
+	</script>
 
 </body>
 </html>
+
+<?php /*
+<div style="float: right; width: auto; max-width: 80%; margin-right: 26px; position: relative; padding: 7px 20px; color: #fff; background: #0093F6; border-radius: 5px; margin-bottom: 15px; clear: both;">
+	<span id="<?= $lastID['id'] ?>">
+		<?= nl2br($mess) ?>
+	</span>
+	<div style="font-size: 10px; text-align: right; margin-top: 10px;">Par <?= $_SESSION['membre_pseudo'] ?>, le <?= $date_message ?></div>
+</div>
+
+<script>
+	document.getElementById('msg').scrollTop = document.getElementById('msg').scrollHeight;
+</script>
+
+*/?>
