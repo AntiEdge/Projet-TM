@@ -18,16 +18,16 @@ if (empty($utilisateur_id)) {
 
 if(isset($_SESSION['id'])){
 
-	$req = $db->prepare("SELECT m.*, r.id_receveur, r.id_demandeur, r.statut, r.id_bloqueur 
-	FROM membres m 
-	LEFT JOIN relation r ON (id_receveur = m.membre_id AND id_demandeur = :id1) OR (id_receveur = :id1 AND id_demandeur = m.membre_id) 
+	$req = $db->prepare("SELECT m.*, r.id_receveur, r.id_demandeur, r.statut, r.id_bloqueur
+	FROM membres m
+	LEFT JOIN relation r ON (id_receveur = m.membre_id AND id_demandeur = :id1) OR (id_receveur = :id1 AND id_demandeur = m.membre_id)
 	WHERE m.membre_id = :id2");
 	$req->execute(array('id2'=>$utilisateur_id, 'id1'=>$_SESSION['id']));
 
 }else {
-	
+
 	$req = $db->prepare("SELECT m.*
-	FROM membres m 
+	FROM membres m
 	WHERE m.membre_id = :id1");
 	$req->execute(array('id1'=>$utilisateur_id));
 
@@ -44,6 +44,13 @@ if(!isset($voir_utilisateur['membre_id'])){
 
 if(!empty($_POST)){
 
+	if(isset($_POST['envoyer'])){
+
+		/*<a href="messagerie2.php?pseudo=<?= $voir_utilisateur['membre_pseudo'] ?>" class="membres-btn-voir"></a>*/
+		header("location:messagerie2.php?pseudo=" . $voir_utilisateur['membre_pseudo'] . "");
+
+	}
+
 	if(isset($_POST['user-ajouter'])){
 
 		try {
@@ -59,7 +66,7 @@ if(!empty($_POST)){
 		}
 
 	    if(isset($verif_relation['id']))
-	    {	
+	    {
 	    	echo 3;
 	        $relation_erreur1 = "Vous avez déjà une relation";
 	        $i++;
@@ -82,7 +89,7 @@ if(!empty($_POST)){
 	    }
 	    else
     	{
-	     
+
 	     	header('location: ./membre.php');
 	        //header('location : ./voirprofil.php?id=' . $voir_utilisateur['membre_id']);
 	        exit;
@@ -169,14 +176,14 @@ if(!empty($_POST)){
 ?>
 
 <body>
-	
+
 	<?php
 		require_once("includes/menu.php"); //Menu bar
 	?>
 
 	<div class="container">
   		<div class="row">
-			<div class="col-sm-12"> 
+			<div class="col-sm-12">
 				<div class="membres--corps">
 					<div>
 						Pseudo : <?= $voir_utilisateur['membre_pseudo'] ?>
@@ -188,6 +195,7 @@ if(!empty($_POST)){
 				<?php if(isset($_SESSION['id'])){ ?>
 				<div>
 					<form method="post">
+						<input type="submit" name="envoyer" value="Envoyer un message">
 						<?php if(!isset($voir_utilisateur['statut'])){ ?>
 							<input type="submit" name="user-ajouter" value="Ajouter">
 						<?php }elseif(isset($voir_utilisateur['statut']) && $voir_utilisateur['id_demandeur'] == $_SESSION['id'] && !isset($voir_utilisateur['id_bloqueur']) && $voir_utilisateur['statut']<>3){ ?>
@@ -200,7 +208,7 @@ if(!empty($_POST)){
 
 							<div>Vous êtes amis</div>
 
-						<?php	
+						<?php
 						}
 							if(isset($voir_utilisateur['statut']) && $voir_utilisateur['statut']<>2 && !isset($voir_utilisateur['id_bloqueur']) && $voir_utilisateur['id_demandeur'] == $_SESSION['id']){
 						 ?>
@@ -213,7 +221,7 @@ if(!empty($_POST)){
 						elseif($voir_utilisateur['id_bloqueur'] <> $_SESSION['id']) {
 						?>
 						<input type="submit" name="user-debloquer" value="Débloquer">
-						<?php } 
+						<?php }
 						else {
 						?>
 						<div>Vous avez été bloqué par cet utilisateur !</div>
