@@ -16,19 +16,34 @@ if (!isset($_SESSION['id'])) {
 
 $pseudo_receveur = $_GET['pseudo'];
 
-$req = $db->prepare("SELECT t.*, m.membre_pseudo FROM tchat t LEFT JOIN membres m ON m.membre_id = t.id_pseudo ORDER BY date_message LIMIT 100");
-$req->execute(array());
+$req = $db->prepare("SELECT * FROM membres WHERE membre_pseudo = ?");
+$req->execute(array($pseudo_receveur));
+$receveur = $req->fetch();
+
+if (isset($receveur['membre_id'])) {
+
+	$id_receveur = $receveur['membre_id'];
+
+}
+
+$req = $db->prepare("SELECT t.*, m.membre_pseudo FROM tchat t LEFT JOIN membres m ON m.membre_id = t.id_pseudo WHERE (id_receveur = ? OR id_pseudo = ?) AND (id_receveur = ? OR id_pseudo = ?) ORDER BY date_message ASC LIMIT 100");
+$req->execute(array($_SESSION['id'], $_SESSION['id'], $id_receveur, $id_receveur));
 $see_tchat = $req->fetchAll();
+
+$nb = count($see_tchat);
 
 ?>
 
 <body>
 
-		<div id="menu">
-			<?php
-				require_once("includes/menu.php"); //Menu bar
-			?>
-		</div>
+	<div id="menu">
+		<?php
+			require_once("includes/menu.php"); //Menu bar
+		?>
+	</div>
+
+	<div type="hidden" id="nb" value="<?php echo $nb; ?>">
+	</div>
 
 	<div class="container">
   		<div class="row">
@@ -37,24 +52,55 @@ $see_tchat = $req->fetchAll();
 				<div id="msg" style="border: 1px solid:#cccccc; padding: 10px 0; border-radius: 5px; overflow: scroll; height: 400px; margin: 10px 0; background: white;">
 					<?php
 
-					//Il faut vérifier qu'il n'y ait que les messages entre les 2 personnes
 					foreach ($see_tchat as $st) {
+
+							$date_message = date_create($st["date_message"]);
+							$date_message = date_format($date_message, 'd M Y à H:i:s');
+
+							if(isset($_SESSION['id']) && $st['id_pseudo'] == $_SESSION['id']) { ?>
+
+								<div style="float: right; width: auto; max-width: 80%; margin-right: 26px; position: relative; padding: 7px 20px; color: #fff; background: #0093F6; border-radius: 5px; margin-bottom: 15px; clear: both;">
+
+									<span id="<?= $id_receveur ?>">
+										<?= nl2br($st['message']) ?>
+									</span>
+
+									<div style="font-size: 10px; text-align: right; margin-top: 10px;">Par <?= $st['membre_pseudo']?>, le <?= $date_message ?></div>
+
+								</div>
+								<?php
+							}else{
+								?>
+								<div style="position: relative; padding: 7px 20px; background: #E5E5EA; border-radius: 5px; color: #000; float: left; width: auto; max-width: 80%; margin-left: 10px; margin-bottom: 15px; clear: both;">
+
+									<span id="<?= $id_receveur ?>">
+										<?= nl2br($st['message']) ?>
+									</span>
+
+									<div style="font-size: 10px; text-align: right; margin-top: 10px;">Par <?= $st['membre_pseudo']?>, le <?= $date_message ?></div>
+								</div>
+								<?php
+							}
+					}
+
+					//Il faut vérifier qu'il n'y ait que les messages entre les 2 personnes
+					/*foreach ($see_tchat as $st) {
 						$date_message = date_create($st["date_message"]);
 						$date_message = date_format($date_message, 'd M Y à H:i:s');
 
 						if(isset($_SESSION['id']) && $st['id_pseudo'] == $_SESSION['id']) {
 					?>
 						<div style="float: right; width: auto; max-width: 80%; margin-right: 26px; position: relative; padding: 7px 20px; color: #fff; background: #0093F6; border-radius: 5px; margin-bottom: 15px; clear: both;">
-							<span id="<?= $st['id'] ?>">
+							<span id="<?= $id_receveur ?>">
 								<?= nl2br($st['message']) ?>
 							</span>
 
-							<div style="font-size: 10px; text-align: right; margin-top: 10px;">Par <?= $st['membre_pseudo']?>, le <?= $date_message ?></div>
+							<div id="<?= $st['membre_pseudo']?>" style="font-size: 10px; text-align: right; margin-top: 10px;">Par <?= $st['membre_pseudo']?>, le <?= $date_message ?></div>
 
 						</div>
 					<?php
 						}
-					}
+					}*/
 					?>
 					<div id="message_recept"></div>
 				</div>
@@ -74,7 +120,7 @@ $see_tchat = $req->fetchAll();
 
 					</div>
 				<?php
-					}
+			}
 				?>
 			</div>
   		</div>
@@ -99,6 +145,7 @@ $see_tchat = $req->fetchAll();
   		if(isset($verif_user['membre_id'])){
 
   			$date_message = date('Y-m-d H:i:s');
+
 
   			$query=$db->prepare('INSERT INTO tchat (id_pseudo, id_receveur, message, date_message) VALUES (?,?,?,?)');
   	    $query->execute(array($_SESSION['id'], $id_receveur['membre_id'], $mess, $date_message));
@@ -153,20 +200,31 @@ $see_tchat = $req->fetchAll();
 
 		setInterval("load_mess()", 1000);
 
-		function load_mess(){
+		function load_mess(nb){
 
 			var lastID = $('#msg span:last').attr('id');
+			var count = document.getElementById('nb').getAttribute('value');
 
 			if(lastID > 0){
 
 				$.ajax({
-					url : 'function/load_mess.php?id=' + lastID,
+					url : 'function/load_mess.php?id=' + lastID + '&count=' + count,
 					type : 'GET',
 					dataType : "html",
 					success : function(data){
 						$("#message_recept").append(data);
 					}
 				});
+				<?php 
+							$req = $db->prepare("SELECT t.*, m.membre_pseudo FROM tchat t LEFT JOIN membres m ON m.membre_id = t.id_pseudo WHERE (id_receveur = ? OR id_pseudo = ?) AND (id_receveur = ? OR id_pseudo = ?) ORDER BY date_message ASC LIMIT 100");
+							$req->execute(array($_SESSION['id'], $_SESSION['id'], $id_receveur, $id_receveur));
+							$see_tchat = $req->fetchAll();
+							$test = count($see_tchat);
+				?>
+
+				var req = "<?php echo $test;?>";
+
+			document.getElementById('nb').setAttribute('value', req);
 			}
 		};
 
