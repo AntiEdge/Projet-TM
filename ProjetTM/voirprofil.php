@@ -79,7 +79,8 @@ if(!empty($_POST)){
 	        $query->execute(array($_SESSION['id'],$voir_utilisateur['membre_id'],1));
 	        $query->CloseCursor();
 
-	        header('location: ./membre.php');
+	        //header('location: ./membre.php');
+					header('location:voirprofil.php?id=' . $voir_utilisateur['membre_id']);
 	        exit;
 	    	}catch(PDOException $e){
 
@@ -90,8 +91,8 @@ if(!empty($_POST)){
 	    else
     	{
 
-	     	header('location: ./membre.php');
-	        //header('location : ./voirprofil.php?id=' . $voir_utilisateur['membre_id']);
+	     	//header('location: ./membre.php');
+	      header('location:voirprofil.php?id=' . $voir_utilisateur['membre_id']);
 	        exit;
 
     	}
@@ -102,8 +103,8 @@ if(!empty($_POST)){
 	    $query->execute(array($voir_utilisateur['membre_id'], $_SESSION['id'], $_SESSION['id'], $voir_utilisateur['membre_id']));
 	    $query->CloseCursor();
 
-	    header('location: ./membre.php');
-	    //header('location : ./voirprofil.php?id=' . $voir_utilisateur['membre_id']);
+	    //header('location: ./membre.php');
+	    header('location:voirprofil.php?id=' . $voir_utilisateur['membre_id']);
 	    exit;
 
 	}elseif(isset($_POST['user-bloquer'])){
@@ -135,8 +136,8 @@ if(!empty($_POST)){
 	    $query->execute(array($_SESSION['id'],$voir_utilisateur['membre_id'],3,$voir_utilisateur['membre_id']));
 	    $query->CloseCursor();
 
-	     header('location: ./membre.php');
-	    //header('location : ./voirprofil.php?id=' . $voir_utilisateur['membre_id']);
+	    //header('location: ./membre.php');
+	    header('location:voirprofil.php?id=' . $voir_utilisateur['membre_id']);
 	    exit;
 
 	}elseif(isset($_POST['user-debloquer'])){
@@ -166,8 +167,8 @@ if(!empty($_POST)){
 	    $query=$db->prepare("DELETE FROM relation WHERE (id_receveur = ? AND id_demandeur = ?) OR (id_receveur = ? AND id_demandeur = ?)");
 	    $query->execute(array($voir_utilisateur['membre_id'], $_SESSION['id'], $_SESSION['id'], $voir_utilisateur['membre_id']));
 
-	    header('location: ./membre.php');
-	    //header('location : ./voirprofil.php?id=' . $voir_utilisateur['membre_id']);
+	    //header('location: ./membre.php');
+	    header('location:voirprofil.php?id=' . $voir_utilisateur['membre_id']);
 	    exit;
 
 	}

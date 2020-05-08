@@ -4,7 +4,6 @@ session_start();
 
 $titre="Tchat online";
 
-require_once("includes/identifiants.php");
 require_once("includes/debut.php");
 
 if (!isset($_SESSION['id'])) {
@@ -16,9 +15,12 @@ if (!isset($_SESSION['id'])) {
 
 $pseudo_receveur = $_GET['pseudo'];
 
-$req = $db->prepare("SELECT * FROM membres WHERE membre_pseudo = ?");
-$req->execute(array($pseudo_receveur));
-$receveur = $req->fetch();
+require 'membres.php';
+
+$membres = new membres;
+
+$rec = $membres->getMembre($pseudo_receveur);
+$receveur = json_decode($rec, true);
 
 if (isset($receveur['membre_id'])) {
 
@@ -44,10 +46,12 @@ if (isset($receveur['membre_id'])) {
 
 					<?php
 
-							// on récupère les 10 derniers messages postés
-							$requete = $db->prepare("SELECT t.*, m.membre_pseudo FROM tchat t LEFT JOIN membres m ON m.membre_id = t.id_pseudo WHERE (id_receveur = ? AND id_pseudo = ?) OR (id_receveur = ? AND id_pseudo = ?) ORDER BY id ASC LIMIT 0,5000");
-							$requete->execute(array($id_receveur, $_SESSION['id'], $_SESSION['id'] , $id_receveur));
-							$donnees = $requete->fetchAll();
+							require 'chat.php';
+
+							$chat = new chat;
+
+							$don = $chat->getJordanLeBogoss($id_receveur);
+							$donnees = json_decode($don, true);
 
 							foreach ($donnees as $d) {
 
@@ -76,8 +80,6 @@ if (isset($receveur['membre_id'])) {
 									//echo "<p id=\"" . $d['id'] . "\">" . $d['membre_pseudo'] . " dit : " . $d['message'] . "</p>";
 
 							}
-
-							$requete->closeCursor();
 
 					?>
 

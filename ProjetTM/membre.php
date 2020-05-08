@@ -7,12 +7,16 @@ $titre="Membre";
 require_once("includes/identifiants.php");
 require_once("includes/debut.php");
 
+require 'membre.php';
+
+$membres = new membres;
+
 if (isset($_SESSION['id'])) {
 
 	//Récupères tout les membres sauf celui égal à l'id de session
 
-	$afficher_membre = $db->prepare("SELECT * FROM membres WHERE membre_id <> ?");
-	$afficher_membre->execute(array($_SESSION['id']));
+	$afficher_m = $membres->getMembre3();
+	$afficher_membre = json_decode($afficher_m,true);
 
 }
 else
@@ -27,7 +31,7 @@ else
 ?>
 
 <body>
-	
+
 	<?php
 		require_once("includes/menu.php"); //Menu bar
 	?>
@@ -38,7 +42,7 @@ else
   		<div class="row">
 	    	<?php foreach($afficher_membre as $am){?>
 
-				<div class="col-sm-3"> 
+				<div class="col-sm-3">
 					<div class="membres--corps">
 						<div>
 							<?= $am['membre_pseudo'] ?>
@@ -49,11 +53,11 @@ else
 					</div>
 				</div>
 
-			<?php 
-				} 
+			<?php
+				}
 			?>
   		</div>
 	</div>
-	
+
 </body>
 </html>

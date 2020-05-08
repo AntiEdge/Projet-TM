@@ -4,7 +4,6 @@ session_start();
 
 $titre="Tchat online";
 
-require_once("includes/identifiants.php");
 require_once("includes/debut.php");
 
 if (!isset($_SESSION['id'])) {
@@ -15,10 +14,11 @@ if (!isset($_SESSION['id'])) {
 }
 
 //Rajouter la vérification ami ou pas
+require 'chat.php';
+$chat = new chat;
 
-$req = $db->prepare("SELECT t.*, m.membre_pseudo FROM tchat t LEFT JOIN membres m ON m.membre_id = t.id_pseudo WHERE m.membre_id <> ? ORDER BY date_message DESC");
-$req->execute(array($_SESSION['id']));
-$see_tchat = $req->fetchAll();
+$voir_tchat = $chat->getChatWithoutYourId();
+$see_tchat = json_decode($voir_tchat, true);
 
 ?>
 

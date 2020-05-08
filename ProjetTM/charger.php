@@ -24,9 +24,9 @@ if(!empty($_GET['id'])){ // on vérifie que l'id est bien présent et pas vide
     foreach($donnees as $d){
       $date_message = $d['date_message'];
       // on affiche le message (l'id servira plus tard)
-      if(isset($_SESSION['id']) && $d['id_pseudo'] == $_SESSION['id']) { ?>
+      if(isset($_SESSION['id']) && $d['id_pseudo'] == $_SESSION['id']) {  ?>
 
-        <div style="float: right; width: auto; max-width: 80%; margin-right: 26px; position: relative;padding: 7px 20px; color: #fff; background: #0093F6; border-radius: 5px; margin-bottom: 15px; clear: both;">
+          <div style="float: right; width: auto; max-width: 80%; margin-right: 26px; position: relative;padding: 7px 20px; color: #fff; background: #0093F6; border-radius: 5px; margin-bottom: 15px; clear: both;">
 
             <?php echo "<p id=\"" . $d['id'] . "\">" . $d['message'] . "</p>"; ?>
 

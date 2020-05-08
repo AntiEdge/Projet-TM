@@ -115,7 +115,7 @@ else //On est dans le cas traitement
 	      $query->bindValue(':email', $email, PDO::PARAM_STR);
         $query->execute();
 
-        $header="MIME-Version: 1.0\r\n";
+        /*$header="MIME-Version: 1.0\r\n";
         $header.='From:"Test"<support@hotmail.com>'."\n";
         $header.='Content-Type:text/html; charset="uft-8"'."\n";
         $header.='Content-Transfer-Encoding: 8bit';
@@ -132,7 +132,7 @@ else //On est dans le cas traitement
         </html>
         ';
 
-        mail("<?= $email ?>", "Inscription !", $message, $header);
+        mail("<?= $email ?>", "Inscription !", $message, $header);*/
 
 	//Et on définit les variables de sessions
         $_SESSION['pseudo'] = $pseudo;
