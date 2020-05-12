@@ -32,10 +32,11 @@ $mes_demandes = $req->fetchAll();
 			$verifier_demande = $req->fetch();
 
 			//Si il y a une demande alors ça update la relation à "Ami"
-		
+
 			if(isset($verifier_demande['id'])){
 				$query=$db->prepare('UPDATE relation SET statut = ? WHERE id = ?');
-			    $query->execute(array( 2, $verifier_demande['id']));
+			  $query->execute(array( 2, $verifier_demande['id']));
+				header('location:voirprofil.php?id=' . $_POST['id_demande']);
 			}
 		}
 
@@ -62,7 +63,7 @@ $mes_demandes = $req->fetchAll();
   		<div class="row">
 	    	<?php foreach($mes_demandes as $md){?>
 
-				<div class="col-sm-3"> 
+				<div class="col-sm-3">
 					<div class="membres--corps">
 						<form method="post">
 						<div>
@@ -76,15 +77,14 @@ $mes_demandes = $req->fetchAll();
 							<input type="submit" name="refuser" value="Refuser"/>
 						</div>
 						</form>
-						
+
 					</div>
 				</div>
 
-			<?php 
-				} 
+			<?php
+				}
 			?>
   		</div>
 	</div>
 </body>
 </html>
-

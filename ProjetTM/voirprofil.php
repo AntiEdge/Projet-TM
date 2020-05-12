@@ -46,7 +46,6 @@ if(!empty($_POST)){
 
 	if(isset($_POST['envoyer'])){
 
-		/*<a href="messagerie2.php?pseudo=<?= $voir_utilisateur['membre_pseudo'] ?>" class="membres-btn-voir"></a>*/
 		header("location:messagerie2.php?pseudo=" . $voir_utilisateur['membre_pseudo'] . "");
 
 	}
@@ -79,7 +78,8 @@ if(!empty($_POST)){
 	        $query->execute(array($_SESSION['id'],$voir_utilisateur['membre_id'],1));
 	        $query->CloseCursor();
 
-	        header('location: ./membre.php');
+	        //header('location: ./membre.php');
+					header('location:voirprofil.php?id=' . $voir_utilisateur['membre_id']);
 	        exit;
 	    	}catch(PDOException $e){
 
@@ -90,9 +90,9 @@ if(!empty($_POST)){
 	    else
     	{
 
-	     	header('location: ./membre.php');
-	        //header('location : ./voirprofil.php?id=' . $voir_utilisateur['membre_id']);
-	        exit;
+	     	//header('location: ./membre.php');
+	      header('location:voirprofil.php?id=' . $voir_utilisateur['membre_id']);
+	      exit;
 
     	}
 
@@ -102,8 +102,8 @@ if(!empty($_POST)){
 	    $query->execute(array($voir_utilisateur['membre_id'], $_SESSION['id'], $_SESSION['id'], $voir_utilisateur['membre_id']));
 	    $query->CloseCursor();
 
-	    header('location: ./membre.php');
-	    //header('location : ./voirprofil.php?id=' . $voir_utilisateur['membre_id']);
+	    //header('location: ./membre.php');
+	    header('location:voirprofil.php?id=' . $voir_utilisateur['membre_id']);
 	    exit;
 
 	}elseif(isset($_POST['user-bloquer'])){
@@ -129,8 +129,8 @@ if(!empty($_POST)){
 	    $query->execute(array($_SESSION['id'],$voir_utilisateur['membre_id'],3,$voir_utilisateur['membre_id']));
 	    $query->CloseCursor();
 
-	     header('location: ./membre.php');
-	    //header('location : ./voirprofil.php?id=' . $voir_utilisateur['membre_id']);
+	    //header('location: ./membre.php');
+	    header('location:voirprofil.php?id=' . $voir_utilisateur['membre_id']);
 	    exit;
 
 	}elseif(isset($_POST['user-debloquer'])){
@@ -155,8 +155,8 @@ if(!empty($_POST)){
 	    $query=$db->prepare("DELETE FROM relation WHERE (id_receveur = ? AND id_demandeur = ?) OR (id_receveur = ? AND id_demandeur = ?)");
 	    $query->execute(array($voir_utilisateur['membre_id'], $_SESSION['id'], $_SESSION['id'], $voir_utilisateur['membre_id']));
 
-	    header('location: ./membre.php');
-	    //header('location : ./voirprofil.php?id=' . $voir_utilisateur['membre_id']);
+	    //header('location: ./membre.php');
+	    header('location:voirprofil.php?id=' . $voir_utilisateur['membre_id']);
 	    exit;
 
 	}
@@ -184,7 +184,6 @@ if(!empty($_POST)){
 				<?php if(isset($_SESSION['id'])){ ?>
 				<div>
 					<form method="post">
-						<input type="submit" name="envoyer" value="Envoyer un message">
 						<?php if(!isset($voir_utilisateur['statut'])){ ?>
 							<input type="submit" name="user-ajouter" value="Ajouter">
 						<?php }elseif(isset($voir_utilisateur['statut']) && $voir_utilisateur['id_demandeur'] == $_SESSION['id'] && !isset($voir_utilisateur['id_bloqueur']) && $voir_utilisateur['statut']<>3){ ?>
@@ -196,6 +195,7 @@ if(!empty($_POST)){
 						}elseif(isset($voir_utilisateur['statut']) && $voir_utilisateur['statut'] == 2 && !isset($voir_utilisateur['id_bloqueur'])){?>
 
 							<div>Vous êtes amis</div>
+							<input type="submit" name="envoyer" value="Envoyer un message">
 
 						<?php
 						}
