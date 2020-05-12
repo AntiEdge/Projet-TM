@@ -23,24 +23,46 @@ if (isset($_SESSION['id'])) {
 	?>
 
 <?php
-echo '<h1>Connexion</h1>';
-?>
-
-<?php
 if (!isset($_POST['pseudo'])) //On est dans la page de formulaire
 {
     echo '<form method="post" action="connexion.php">
-    <fieldset>
-    <legend>Connexion</legend>
-    <p>
-    <label for="pseudo">Pseudo :</label><input name="pseudo" type="text" id="pseudo" /><br />
-    <label for="password">Mot de Passe :</label><input type="password" name="password" id="password" />
-    </p>
-    </fieldset>
-    <p><input type="submit" value="Connexion" /></p></form>
-    <a href="./register.php">Pas encore inscrit ?</a>
+		<link rel="stylesheet" type="text/css" href="styles/styles.css">
+		<div class="container-fluid">
+		  <div class="row no-gutter">
+		    <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"></div>
+		    <div class="col-md-8 col-lg-6">
+		      <div class="login d-flex align-items-center py-5">
+		        <div class="container">
+		          <div class="row">
+		            <div class="col-md-9 col-lg-8 mx-auto">
+		              <h3 class="login-heading mb-4">Welcome back!</h3>
+		              <form>
+		                <div class="form-label-group">
+		                  <input type="text" name="pseudo" id="pseudo" class="form-control" placeholder="Pseudo" required autofocus>
+		                 <label for="pseudo">Pseudo</label>
+		                </div>
 
-    </div>
+		                <div class="form-label-group">
+		                  <input type="password" name="password" id="password" class="form-control" placeholder="Mot de passe" required>
+		                  <label for="password">Password</label>
+		                </div>
+
+		                <div class="custom-control custom-checkbox mb-3">
+		                  <input type="checkbox" class="custom-control-input" id="customCheck1">
+		                  <label class="custom-control-label" for="customCheck1">Remember password</label>
+		                </div>
+		                <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" value="Connexion" type="submit">Sign in</button>
+										<div class="text-center">
+                  <a class="small" href="./register.php">Pas encore inscrit?</a></div>
+		              </form>
+		            </div>
+		          </div>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
     </body>
     </html>';
 }
