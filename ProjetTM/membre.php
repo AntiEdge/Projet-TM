@@ -7,16 +7,12 @@ $titre="Membre";
 require_once("includes/identifiants.php");
 require_once("includes/debut.php");
 
-require 'membre.php';
-
-$membres = new membres;
-
 if (isset($_SESSION['id'])) {
 
 	//Récupères tout les membres sauf celui égal à l'id de session
 
-	$afficher_m = $membres->getMembre3();
-	$afficher_membre = json_decode($afficher_m,true);
+	$afficher_membre = $db->prepare("SELECT * FROM membres WHERE membre_id <> ?");
+	$afficher_membre->execute(array($_SESSION['id']));
 
 }
 else

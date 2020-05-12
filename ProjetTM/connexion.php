@@ -56,30 +56,28 @@ else
     }
     else //On check le mot de passe
     {
-        require 'membres.php';
-
-				$membres = new membres;
-
-				$d = $membres->getMembre2($_POST['pseudo']);
-				$data = json_decode($d, true);
-
-				if ($data['membre_mdp'] == md5($_POST['password'])) // Acces OK !
-				{
-					$_SESSION['pseudo'] = $data['membre_pseudo'];
-					$_SESSION['id'] = $data['membre_id'];
-					header('location: ./index.php');
-					exit;
-				}
-				else // Acces pas OK !
-				{
-					$message = '<p>Une erreur s\'est produite
-					pendant votre identification.<br /> Le mot de passe ou le pseudo
-						entré n\'est pas correcte.</p><p>Cliquez <a href="./connexion.php">ici</a>
-					pour revenir à la page précédente
-					<br /><br />Cliquez <a href="./index.php">ici</a>
-					pour revenir à la page d accueil</p>';
-				}
-				$query->CloseCursor();
+        $query=$db->prepare('SELECT membre_mdp, membre_id, membre_pseudo
+        FROM membres WHERE membre_pseudo = :pseudo');
+        $query->bindValue(':pseudo',$_POST['pseudo'], PDO::PARAM_STR);
+        $query->execute();
+        $data=$query->fetch();
+		if ($data['membre_mdp'] == md5($_POST['password'])) // Acces OK !
+		{
+			$_SESSION['pseudo'] = $data['membre_pseudo'];
+			$_SESSION['id'] = $data['membre_id'];
+			header('location: ./index.php');
+			exit;
+		}
+		else // Acces pas OK !
+		{
+			$message = '<p>Une erreur s\'est produite
+			pendant votre identification.<br /> Le mot de passe ou le pseudo
+				entré n\'est pas correcte.</p><p>Cliquez <a href="./connexion.php">ici</a>
+			pour revenir à la page précédente
+			<br /><br />Cliquez <a href="./index.php">ici</a>
+			pour revenir à la page d accueil</p>';
+		}
+		$query->CloseCursor();
 	}
 
 	echo $message;

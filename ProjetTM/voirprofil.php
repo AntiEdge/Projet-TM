@@ -18,16 +18,16 @@ if (empty($utilisateur_id)) {
 
 if(isset($_SESSION['id'])){
 
-	$req = $db->prepare("SELECT m.*, r.id_receveur, r.id_demandeur, r.statut, r.id_bloqueur 
-	FROM membres m 
-	LEFT JOIN relation r ON (id_receveur = m.membre_id AND id_demandeur = :id1) OR (id_receveur = :id1 AND id_demandeur = m.membre_id) 
+	$req = $db->prepare("SELECT m.*, r.id_receveur, r.id_demandeur, r.statut, r.id_bloqueur
+	FROM membres m
+	LEFT JOIN relation r ON (id_receveur = m.membre_id AND id_demandeur = :id1) OR (id_receveur = :id1 AND id_demandeur = m.membre_id)
 	WHERE m.membre_id = :id2");
 	$req->execute(array('id2'=>$utilisateur_id, 'id1'=>$_SESSION['id']));
 
 }else {
-	
+
 	$req = $db->prepare("SELECT m.*
-	FROM membres m 
+	FROM membres m
 	WHERE m.membre_id = :id1");
 	$req->execute(array('id1'=>$utilisateur_id));
 
@@ -44,6 +44,13 @@ if(!isset($voir_utilisateur['membre_id'])){
 
 if(!empty($_POST)){
 
+	if(isset($_POST['envoyer'])){
+
+		/*<a href="messagerie2.php?pseudo=<?= $voir_utilisateur['membre_pseudo'] ?>" class="membres-btn-voir"></a>*/
+		header("location:messagerie2.php?pseudo=" . $voir_utilisateur['membre_pseudo'] . "");
+
+	}
+
 	if(isset($_POST['user-ajouter'])){
 
 		try {
@@ -59,7 +66,7 @@ if(!empty($_POST)){
 		}
 
 	    if(isset($verif_relation['id']))
-	    {	
+	    {
 	    	echo 3;
 	        $relation_erreur1 = "Vous avez déjà une relation";
 	        $i++;
@@ -72,8 +79,7 @@ if(!empty($_POST)){
 	        $query->execute(array($_SESSION['id'],$voir_utilisateur['membre_id'],1));
 	        $query->CloseCursor();
 
-	        //header('location: ./membre.php');
-					header('location:voirprofil.php?id=' . $voir_utilisateur['membre_id']);
+	        header('location: ./membre.php');
 	        exit;
 	    	}catch(PDOException $e){
 
@@ -83,15 +89,9 @@ if(!empty($_POST)){
 	    }
 	    else
     	{
-<<<<<<< HEAD
 
-	     	//header('location: ./membre.php');
-	      header('location:voirprofil.php?id=' . $voir_utilisateur['membre_id']);
-=======
-	     
 	     	header('location: ./membre.php');
 	        //header('location : ./voirprofil.php?id=' . $voir_utilisateur['membre_id']);
->>>>>>> parent of 728a588... Functionnal messenger
 	        exit;
 
     	}
@@ -102,8 +102,8 @@ if(!empty($_POST)){
 	    $query->execute(array($voir_utilisateur['membre_id'], $_SESSION['id'], $_SESSION['id'], $voir_utilisateur['membre_id']));
 	    $query->CloseCursor();
 
-	    //header('location: ./membre.php');
-	    header('location:voirprofil.php?id=' . $voir_utilisateur['membre_id']);
+	    header('location: ./membre.php');
+	    //header('location : ./voirprofil.php?id=' . $voir_utilisateur['membre_id']);
 	    exit;
 
 	}elseif(isset($_POST['user-bloquer'])){
@@ -111,19 +111,13 @@ if(!empty($_POST)){
 	    /*$query=$db->prepare('SELECT id FROM relation WHERE (id_receveur = :id1 AND id_demandeur = :id2) OR (id_receveur = :id2 AND id_demandeur = :id1)');
 	    $query->execute(array('id1' => $voir_utilisateur['membre_id'], 'id2' => $_SESSION['id']));
 	    $verif_relation=$req->fetch();
-
 	    if(isset($verif_relation['id'])){
-
 		    $query=$db->prepare('UPDATE relation SET id_bloqueur = ? WHERE id = ?');
 		    $query->execute(array($voir_utilisateur['membre_id'], $verif_relation['id']));
-
 	    }else{
-
 	    	$query=$db->prepare('INSERT INTO relation (id_demandeur, id_receveur, statut, id_bloqueur) VALUES (?,?,?,?)');
 		    $query->execute(array($_SESSION['id'], $voir_utilisateur['membre_id'], 3, $voir_utilisateur['membre_id']));
-
 	    }
-
 	    header('location: ./membre.php');
 	    //header('location : ./voirprofil.php?id=' . $voir_utilisateur['membre_id']);
 	    exit;*/
@@ -135,8 +129,8 @@ if(!empty($_POST)){
 	    $query->execute(array($_SESSION['id'],$voir_utilisateur['membre_id'],3,$voir_utilisateur['membre_id']));
 	    $query->CloseCursor();
 
-	    //header('location: ./membre.php');
-	    header('location:voirprofil.php?id=' . $voir_utilisateur['membre_id']);
+	     header('location: ./membre.php');
+	    //header('location : ./voirprofil.php?id=' . $voir_utilisateur['membre_id']);
 	    exit;
 
 	}elseif(isset($_POST['user-debloquer'])){
@@ -144,20 +138,15 @@ if(!empty($_POST)){
 	    /*$query=$db->prepare('SELECT id, statut FROM relation WHERE (id_receveur = :id1 AND id_demandeur = :id2) OR (id_receveur = :id2 AND id_demandeur = :id1)');
 	    $query->execute(array('id1' => $voir_utilisateur['membre_id'], 'id2' => $_SESSION['id']));
 	    $verif_relation=$req->fetch();
-
 	    if(isset($verif_relation['id'])){
-
 	    	if($verif_relation['statut'] == 3){
 			    $query=$db->prepare('DELETE FROM relation WHERE id = ?');
 			    $query->execute(array($verif_relation['id']));
-
 	    	}else{
-
 		    	$query=$db->prepare('UPDATE relation SET id_bloqueur = ? WHERE id = ?');
 			    $query->execute(array( NULL, $verif_relation['id']));
 			}
 	    }
-
 	    header('location: ./membre.php');
 	    //header('location : ./voirprofil.php?id=' . $voir_utilisateur['membre_id']);
 	    exit;*/
@@ -166,8 +155,8 @@ if(!empty($_POST)){
 	    $query=$db->prepare("DELETE FROM relation WHERE (id_receveur = ? AND id_demandeur = ?) OR (id_receveur = ? AND id_demandeur = ?)");
 	    $query->execute(array($voir_utilisateur['membre_id'], $_SESSION['id'], $_SESSION['id'], $voir_utilisateur['membre_id']));
 
-	    //header('location: ./membre.php');
-	    header('location:voirprofil.php?id=' . $voir_utilisateur['membre_id']);
+	    header('location: ./membre.php');
+	    //header('location : ./voirprofil.php?id=' . $voir_utilisateur['membre_id']);
 	    exit;
 
 	}
@@ -176,14 +165,14 @@ if(!empty($_POST)){
 ?>
 
 <body>
-	
+
 	<?php
 		require_once("includes/menu.php"); //Menu bar
 	?>
 
 	<div class="container">
   		<div class="row">
-			<div class="col-sm-12"> 
+			<div class="col-sm-12">
 				<div class="membres--corps">
 					<div>
 						Pseudo : <?= $voir_utilisateur['membre_pseudo'] ?>
@@ -195,6 +184,7 @@ if(!empty($_POST)){
 				<?php if(isset($_SESSION['id'])){ ?>
 				<div>
 					<form method="post">
+						<input type="submit" name="envoyer" value="Envoyer un message">
 						<?php if(!isset($voir_utilisateur['statut'])){ ?>
 							<input type="submit" name="user-ajouter" value="Ajouter">
 						<?php }elseif(isset($voir_utilisateur['statut']) && $voir_utilisateur['id_demandeur'] == $_SESSION['id'] && !isset($voir_utilisateur['id_bloqueur']) && $voir_utilisateur['statut']<>3){ ?>
@@ -207,7 +197,7 @@ if(!empty($_POST)){
 
 							<div>Vous êtes amis</div>
 
-						<?php	
+						<?php
 						}
 							if(isset($voir_utilisateur['statut']) && $voir_utilisateur['statut']<>2 && !isset($voir_utilisateur['id_bloqueur']) && $voir_utilisateur['id_demandeur'] == $_SESSION['id']){
 						 ?>
@@ -220,7 +210,7 @@ if(!empty($_POST)){
 						elseif($voir_utilisateur['id_bloqueur'] <> $_SESSION['id']) {
 						?>
 						<input type="submit" name="user-debloquer" value="Débloquer">
-						<?php } 
+						<?php }
 						else {
 						?>
 						<div>Vous avez été bloqué par cet utilisateur !</div>

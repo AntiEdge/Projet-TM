@@ -11,7 +11,6 @@ if (isset($_SESSION['id'])) {
 }
 
 ?>
-
 <body>
 
 <?php
@@ -20,23 +19,28 @@ require_once("includes/menu.php");
 
 if (empty($_POST['pseudo'])) // Si on la variable est vide, on peut considérer qu'on est sur la page de formulaire
 {
-	echo '<h1>Inscription</h1>';
-	echo '<form method="post" action="register.php" enctype="multipart/form-data">
-
-	<fieldset><legend>Identifiants</legend>
-	<label for="pseudo">* Pseudo :</label>  <input name="pseudo" type="text" id="pseudo" placeholder=" Pseudo"/> (le pseudo doit contenir entre 3 et 15 caractères)<br />
-	<label for="password">* Mot de Passe : </label><input type="password" name="password" id="password" placeholder=" Mot de passe"/><br />
-	<label for="confirm">* Confirmer le mot de passe : </label><input type="password" name="confirm" id="confirm" placeholder=" Mot de passe"/>
-	</fieldset>
-
-	<fieldset><legend>Contacts</legend>
-	<label for="email">* Votre adresse Mail : </label><input type="text" name="email" id="email" placeholder=" E-Mail"/><br />
-	</fieldset>
-
-	<p>Les champs précédés d un * sont obligatoires</p>
-	<p><input type="submit" value="S\'inscrire" /></p></form>
-
-	</html>';
+	echo '<div class="register">
+    			<h1>Inscription</h1>
+    			<form action="register.php" method="post" autocomplete="off">
+    				<label for="pseudo">
+    					<i class="fas fa-user"></i>
+    				</label>
+    				<input type="text" name="pseudo" placeholder="Pseudo" id="pseudo" required>
+    				<label for="password">
+    					<i class="fas fa-lock"></i>
+    				</label>
+    				<input type="password" name="password" placeholder="Password" id="password" required>
+            <label for="password">
+    					<i class="fas fa-lock"></i>
+    				</label>
+    				<input type="password" name="confirm" placeholder="Confirm Password" id="confirm" required>
+    				<label for="email">
+    					<i class="fas fa-envelope"></i>
+    				</label>
+    				<input type="email" name="email" placeholder="E-mail" id="email" required>
+    				<input type="submit" value="S\'inscrire">
+    			</form>
+    		</div>';
 
 
 } //Fin de la partie formulaire
