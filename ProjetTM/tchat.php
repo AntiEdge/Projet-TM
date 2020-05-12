@@ -34,8 +34,6 @@ $see_tchat = json_decode($voir_tchat, true);
 
 			<?php
 
-						$nb_message = 0;
-
 						$var = 0;
 						$deja_present = array($var => null);
 
@@ -43,8 +41,6 @@ $see_tchat = json_decode($voir_tchat, true);
 							if(($st['id_receveur'] == $_SESSION['id']) && !in_array($st['id_pseudo'],$deja_present)){
 									$deja_present = array($var => $st['id_pseudo']);
 									$var++;
-
-									$nb_message++;
 								?>
 								<div class="row">
 									<div class="rowTchat">
@@ -60,23 +56,13 @@ $see_tchat = json_decode($voir_tchat, true);
 										</div>
 										<div class="col">
 											<div class="colTchat">
-													<a href="messagerie2.php?pseudo=<?= $st['membre_pseudo'] ?>" class="membres-btn-voir">Voir message</a>
+													<a href="messagerie.php?pseudo=<?= $st['membre_pseudo'] ?>" class="membres-btn-voir">Voir message</a>
 											</div>
 										</div>
 									</div>
 								</div>
 			<?php
 							}
-						}
-
-						if($nb_message = 0) {
-
-							?>
-
-							<p>Vous n'avez pas de message</p>
-
-							<?php
-
 						}
 			?>
 		</div>
