@@ -78,6 +78,10 @@ if(!empty($_POST)){
 	        $query->execute(array($_SESSION['id'],$voir_utilisateur['membre_id'],1));
 	        $query->CloseCursor();
 
+					$query=$db->prepare('INSERT INTO notification (sujet,texte,statut,id_user) VALUES (?,?,?,?)');
+	        $query->execute(array('Nouvelle demande d\'ami','yo',0,$voir_utilisateur['membre_id']));
+	        $query->CloseCursor();
+
 	        //header('location: ./membre.php');
 					header('location:voirprofil.php?id=' . $voir_utilisateur['membre_id']);
 	        exit;
