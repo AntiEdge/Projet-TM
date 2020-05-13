@@ -1,5 +1,5 @@
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	  <a class="navbar-brand" href="#"><img src=".\styles\corona.jpg" width="30" height="30" alt=""></a>
+	  <a class="navbar-brand" href="#"><img src=".\img\corona.png" width="40" height="40" alt=""></a>
 	  <a class="navbar-brand" href="index.php">Acceuil</a>
 	  <a class="navbar-brand" href="membre.php">Membre</a>
 	  <a class="navbar-brand" href="map.php">Map</a>
@@ -12,16 +12,16 @@
 	    	<?php
 	    		if (isset($_SESSION['id'])) {
 	    	?>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<img src=".\img\alarm-light-outline.png" width="25" height="25" alt=""><span class="badge badge-danger">0</span>
+					</a>
+					<div class="dropdown-menu" id="oui" aria-labelledby="navbarDropdownMenuLink">
+						<a class="dropdown-item count" href="#"></a>
+					</div>
+				</li>
 	    		<li class="nav-item">
 	    			<a class="nav-link" href="" data-toggle="modal" data-target="#exampleModal">Mon profil</a>
-	    		</li>
-					<li class="nav-item dropdown">
-	    			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<img src=".\img\alarm-light-outline.png" width="25" height="25" alt=""><span class="badge badge-danger">0</span>
-						</a>
-						<div class="dropdown-menu" id="oui" aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item count" href="#"></a>
-						</div>
 	    		</li>
 	    			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 					  <div class="modal-dialog" role="document">

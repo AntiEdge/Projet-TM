@@ -49,7 +49,13 @@ require_once('includes/debut.php');
 
               <div class="form-group">
                   <input type="number" class="form-control item" id="nbmask" name="nbmask" placeholder="Nombre de mask disponible" required>
-                  <input type="text" class="form-control item" id="type" name="type" placeholder="Type de mask" required>
+                  <select class="form-control item" id="type" name="type" size="1">
+                  <option>HOMEMADE</option>
+                  <option>FFP1</option>
+                  <option>FFP2</option>
+                  <option>FFP3</option>
+                  <option>N95</option>
+                  </select>
               </div>
               <div class="form-group">
                   <input name="submit" type="submit" value="Valider" class="btn btn-block create-account" required>
@@ -69,14 +75,31 @@ require_once('includes/debut.php');
          $nb_mask = $_POST['nbmask'];
          $membre_id = $_SESSION['id'];
 
+         $query=$db->prepare('SELECT membre_id FROM localisation WHERE membre_id = ?');
+         $query->execute(array($_SESSION['id']));
+         $membre = $query->fetchAll();
+         foreach ($membre as $m) {
+           $membre_existant = $m['membre_id'];
+         }
 
-         $query=$db->prepare('INSERT INTO localisation (name, address, type,lat,lng,
-         nbmask,membre_id)
-         VALUES (?, ?, ?, ?, ?, ?, ?)');
-         $query->execute(array($name,$address,$type,NULL,NULL,$nb_mask,$membre_id));
-         $query->CloseCursor();
-         header('location:maskofferform.php');
+         if($membre_id != $membre_existant){
 
+           $query=$db->prepare('INSERT INTO localisation (name, address, type,lat,lng,
+           nbmask,membre_id)
+           VALUES (?, ?, ?, ?, ?, ?, ?)');
+           $query->execute(array($name,$address,$type,NULL,NULL,$nb_mask,$membre_id));
+           $query->CloseCursor();
+
+           echo'<h1>Formulaire terminée</h1>';
+           echo'<p>Merci '.stripslashes(htmlspecialchars($_SESSION['pseudo'])).' pour votre contribution à la communauté</p>
+         	<p>Cliquez <a href="./index.php">ici</a> pour revenir à la page d accueil</p>';
+
+        }else{
+
+          echo 'Le formulaire est unique.<br/>Vous avez surement déjà fait un don de masque. Pour introduire une nouvelle demande veuillez contactez le support !';
+          echo '<p>Cliquez <a href="./index.php">ici</a> pour revenir à la page d accueil</p>';
+
+        }
       }
   ?>
 

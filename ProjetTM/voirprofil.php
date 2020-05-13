@@ -189,7 +189,7 @@ if(!empty($_POST)){
 				<div>
 					<form method="post">
 						<?php if(!isset($voir_utilisateur['statut'])){ ?>
-							<input type="submit" name="user-ajouter" value="Ajouter">
+							<input type="submit" class="btn-user" name="user-ajouter" value="Ajouter">
 						<?php }elseif(isset($voir_utilisateur['statut']) && $voir_utilisateur['id_demandeur'] == $_SESSION['id'] && !isset($voir_utilisateur['id_bloqueur']) && $voir_utilisateur['statut']<>3){ ?>
 							<div>Demande en attente</div>
 						<?php
@@ -199,21 +199,21 @@ if(!empty($_POST)){
 						}elseif(isset($voir_utilisateur['statut']) && $voir_utilisateur['statut'] == 2 && !isset($voir_utilisateur['id_bloqueur'])){?>
 
 							<div>Vous êtes amis</div>
-							<input type="submit" name="envoyer" value="Envoyer un message">
+							<input type="submit" class="btn-user" name="envoyer" value="Envoyer un message">
 
 						<?php
 						}
 							if(isset($voir_utilisateur['statut']) && $voir_utilisateur['statut']<>2 && !isset($voir_utilisateur['id_bloqueur']) && $voir_utilisateur['id_demandeur'] == $_SESSION['id']){
 						 ?>
-							<input type="submit" name="user-supprimer" value="Supprimer">
+							<input type="submit" class="btn-user" name="user-supprimer" value="Supprimer">
 						<?php }
 							if((isset($voir_utilisateur['statut']) || isset($voir_utilisateur['statut']) == NULL) && !isset($voir_utilisateur['id_bloqueur'])){
 						?>
-						<input type="submit" name="user-bloquer" value="Bloquer">
+						<input type="submit" class="btn-user" name="user-bloquer" value="Bloquer">
 						<?php }
 						elseif($voir_utilisateur['id_bloqueur'] <> $_SESSION['id']) {
 						?>
-						<input type="submit" name="user-debloquer" value="Débloquer">
+						<input type="submit" class="btn-user" name="user-debloquer" value="Débloquer">
 						<?php }
 						else {
 						?>

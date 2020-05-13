@@ -11,8 +11,6 @@ require_once("includes/debut.php");
 
   <style>
 
-  body {background-color: white;}
-
     .carousel {
 
       margin: 0 auto;
@@ -68,11 +66,21 @@ require_once("includes/debut.php");
 	     cursor: pointer;
 	 }
 
-   img.rounded-corners {
-  border-radius: 30px;
-}
+   img.rounded-corners{
+      border-radius: 30px;
+      cursor : pointer;
+    }
 
-}
+    img.rounded-corners:hover{
+       border-radius: 30px;
+       box-shadow: 0 5px 5px rgba( 0, 0, 0, .3);
+     }
+
+    .img-fluid {
+    max-width: 100%;
+    height: 550px;
+    width: 1500px
+    }
 
   </style>
 
@@ -100,22 +108,23 @@ require_once("includes/debut.php");
 
 	                        <!-- Images -->
 	                        <div class="carousel-item active">
-	                            <img class="img-fluid mx-auto" src="img/exchangecovid19.jpg" alt="First slide">
+	                            <img class="img-fluid mx-auto" src="img/mask.jpg" alt="First slide">
 	                            <div class="carousel-caption">
+                                <h3>S'informer</h3>
 	                            </div>
 	                        </div>
 
 	                        <div class="carousel-item">
-	                            <img class="img-fluid mx-auto" src="img/covid19.jpeg" alt="Second slide">
+	                            <img class="img-fluid mx-auto" src="img/medical.jpg" alt="Second slide">
 	                            <div class="carousel-caption">
-	                                <h3>Get in touch</h3>
+	                                <h3>Prévenir</h3>
 	                            </div>
 	                        </div>
 
 	                        <div class="carousel-item">
-	                            <img class="img-fluid mx-auto" src="img/covid19.jpeg" alt="Third slide">
+	                            <img class="img-fluid mx-auto" src="img/mask2.jpg" alt="Third slide">
 	                            <div class="carousel-caption">
-	                                <h3>Fight it together </h3>
+	                                <h3>Se protéger</h3>
 	                            </div>
 	                        </div>
 
@@ -236,7 +245,7 @@ $("#contactmask").click(function () {
 </body>
 
 <?php
-echo '<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>';
+echo '<br/><br/><br/><br/>';
 require_once("includes/footer.php");
 ?>
 

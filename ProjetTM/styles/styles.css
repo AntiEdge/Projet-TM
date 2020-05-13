@@ -1,8 +1,14 @@
+body {
+
+  background:  white;
+
+}
+
 /*CSS Nav Bar*/
 
 .bg-light {
 
-    background-color: #2980B9 !important;
+    background-color: #5791FF !important;
     box-shadow: 0 5px 5px rgba( 0, 0, 0, .3);
 
 }
@@ -13,12 +19,14 @@
 
 }
 
-.navbar-light .navbar-nav .nav-link:hover, .nav-link:focus {
+.navbar-light .navbar-brand {
+    color: white;
+}
 
+.navbar-light .navbar-nav .nav-link {
     color: white;
     padding-bottom: 1px;
     text-decoration: none;
-
 }
 
 .rowTchat{
@@ -60,7 +68,7 @@
 
 .membres-btn-voir {
 
-	background: #2980B9;
+	background: #5791ff;
 	color: white;
 	text-decoration: none;
 	outline: none;
@@ -71,6 +79,29 @@
 }
 
 .membres-btn-voir:hover {
+
+	transition: ease-out .5s all;
+	color: white;
+	text-decoration: none;
+	background: rgba(41,128,185,.9);
+
+}
+
+/*Voir profil*/
+
+.btn-user {
+
+	background: #5791ff;
+	color: white;
+	text-decoration: none;
+	outline: none;
+	padding: 5px 20px;
+	border-radius: 10px;
+	transition: ease-in .5s all;
+
+}
+
+.btn-user:hover {
 
 	transition: ease-out .5s all;
 	color: white;
@@ -218,7 +249,11 @@
 
 /* connexion */
 
-
+.btn-primary {
+    color: #fff;
+    background-color: #5791ff;
+    border-color: #5791ff;
+}
 
 :root {
   --input-padding-x: 1.5rem;
@@ -306,6 +341,12 @@
   padding-bottom: calc(var(--input-padding-y) / 3);
   font-size: 12px;
   color: #777;
+}
+
+.custom-control-label {
+    position: initial;
+    margin-bottom: 0;
+    vertical-align: top;
 }
 
 /* Fallback for Edge
