@@ -8,6 +8,8 @@
 		private $lat;
 		private $lng;
 		private $conn;
+		private $nbmask;
+		private $membre_id;
 // variable pour le nom de la table qu'on récupère dans la requête sql.
 		private $tableName = "localisation";
 
@@ -24,6 +26,10 @@
 		function getLat() { return $this->lat; }
 		function setLng($lng) { $this->lng = $lng; }
 		function getLng() { return $this->lng; }
+		function setNbmask($lng) { $this->nbmask = $nbmask; }
+		function getNbmask() { return $this->nbmask; }
+		function setMembre_id($lng) { $this->membre_id = $membre_id; }
+		function getMembre_id() { return $this->membre_id; }
 
 //Constructeur de ma classe ville, l'on crée un objet connexion pour établir la connexion à la db
 		public function __construct() {
