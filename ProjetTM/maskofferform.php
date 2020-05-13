@@ -27,6 +27,9 @@ require_once('includes/debut.php');
 
 <body>
   <?php
+    require_once("includes/menu.php");
+  ?>
+  <?php
 
     if(empty($_POST['name'])){
 

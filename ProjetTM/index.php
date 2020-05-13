@@ -11,28 +11,18 @@ require_once("includes/debut.php");
 
   <style>
 
-     /* Add a gray background color and some padding to the footer */
-     footer {
-       background-color: #f2f2f2;
-       padding: 25px;
-     }
+  body {background-color: white;}
 
-   .carousel-inner img {
-       width: 3000px; /* Set width to 100% */
-       max-height: 	1000px;
-   }
+    .carousel {
 
-	 html,body{height:100%;}
-	 .carousel,.item,.active{height:100%;}
-	 .carousel-inner{height:100%;}
-	 .carousel-captionheight{100%;}
-   }
+      margin: 0 auto;
+
+    }
 
 	 .contact-form{
-	     background: #fff;
 	     margin-top: 10%;
 	     margin-bottom: 5%;
-	     width: 70%;
+	     width: 1000%;
 	 }
 	 .contact-form .form-control{
 	     border-radius:1rem;
@@ -44,7 +34,6 @@ require_once("includes/debut.php");
 	     border-radius: 6rem;
 	     width: 11%;
 	     margin-top: -3%;
-	     transform: rotate(29deg);
 	 }
 	 .contact-form form{
 	     padding: 14%;
@@ -59,18 +48,18 @@ require_once("includes/debut.php");
 	     color: #0062cc;
 	 }
 	 .contact-form .btnContact {
-	     width: 50%;
+	     width: 100%;
 	     border: none;
 	     border-radius: 1rem;
 	     padding: 1.5%;
-	     background: #dc3545;
+	     background: #5791ff;
 	     font-weight: 600;
 	     color: #fff;
 	     cursor: pointer;
 	 }
 	 .btnContactSubmit
 	 {
-	     width: 50%;
+	     width: 100%;
 	     border-radius: 1rem;
 	     padding: 1.5%;
 	     color: #fff;
@@ -78,6 +67,10 @@ require_once("includes/debut.php");
 	     border: none;
 	     cursor: pointer;
 	 }
+
+   img.rounded-corners {
+  border-radius: 30px;
+}
 
 }
 
@@ -107,40 +100,38 @@ require_once("includes/debut.php");
 
 	                        <!-- Images -->
 	                        <div class="carousel-item active">
-	                            <img class="d-block img-fluid" src="https://www.parismou.org/sites/default/files/corona_0.jpeg" alt="First slide">
+	                            <img class="img-fluid mx-auto" src="img/exchangecovid19.jpg" alt="First slide">
 	                            <div class="carousel-caption">
-	                                <h3>Offer</h3>
 	                            </div>
 	                        </div>
 
 	                        <div class="carousel-item">
-	                            <img class="d-block img-fluid" src="https://www.parismou.org/sites/default/files/corona_0.jpeg" alt="Second slide">
+	                            <img class="img-fluid mx-auto" src="img/covid19.jpeg" alt="Second slide">
 	                            <div class="carousel-caption">
-	                                <h3>Receive</h3>
+	                                <h3>Get in touch</h3>
 	                            </div>
 	                        </div>
 
 	                        <div class="carousel-item">
-	                            <img class="d-block img-fluid" src="https://www.parismou.org/sites/default/files/corona_0.jpeg" alt="Third slide">
+	                            <img class="img-fluid mx-auto" src="img/covid19.jpeg" alt="Third slide">
 	                            <div class="carousel-caption">
-	                                <h3>Make a change</h3>
+	                                <h3>Fight it together </h3>
 	                            </div>
 	                        </div>
 
 	                    </div>
-	                    <!--Carousel Inner-->
+
+
+                     <a class="carousel-control-prev" href="#carouselPortfolio" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                         <span class="sr-only">Previous</span>
+                        </a>
+
+                     <a class="carousel-control-next" href="#carouselPortfolio" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                         <span class="sr-only">Next</span>
+                        </a>
 	                </div>
-	                <!--Carousel Example Slides Only-->
-
-	                <!-- Controls -->
-	                <a class="carousel-control-prev" href="#carouselPortfolio" role="button" data-slide="prev">
-
-	                    <span class="sr-only">Previous</span></a>
-
-	                <a class="carousel-control-next" href="#carouselPortfolio" role="button" data-slide="next">
-
-	                    <span class="sr-only">Next</span></a>
-
 	            </div>
 	            <!--column-->
 
@@ -154,25 +145,66 @@ require_once("includes/debut.php");
 	  <h3>What We Do</h3><br>
 	  <div class="row">
 	    <div class="col-md-4">
-	      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-	      <p>Contactez nos généreux donateurs</p>
+
+	      <img src="img/givemask.png" id="givemask" class="img-responsive rounded-corners" style="width:59%" alt="Image">
+
 	    </div>
 	    <div class="col-md-4">
-	      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-	      <p>Ajouter vos mask</p>
+	      <img src="img/requestmask.png" id="requestmask" class="img-responsive rounded-corners" style="width:60%" alt="Image">
 	    </div>
 			<div class="col-md-4">
-				<img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
-				 <p>Ajouter vos mask</p>
+				<img src="img/getconnected.png" id="contactmask" class="img-responsive rounded-corners" style="width:60%" alt="Image">
 				<p></p>
 			</div>
 	  </div>
 	</div>
 
+  <script>
+  $(function () {
+  $("#givemask").click(function () {
+
+    var id = <?php if(!isset($_SESSION['id'])){
+      echo 1;
+    }
+    else {
+
+      echo 0;
+
+    }?>
+
+    if(id == 0){
+
+        window.location.replace("maskofferform.php");
+
+      } else{
+
+        window.location.replace("register.php");
+
+      }
+
+  });
+});
+
+$(function () {
+$("#requestmask").click(function () {
+  window.location.replace("map.php");
+});
+});
+
+$(function () {
+$("#contactmask").click(function () {
+  window.location.replace("membre.php");
+});
+});
+
+  </script>
+
 </br></br></br></br></br></br><br>
+
+
 	<div class="container contact-form">
 	            <div class="contact-image">
-	                <img src="img/contactus.png" alt="rocket_contact"/>
+	                <img src="img/contactus.png"/>
 	            </div>
 	            <form method="post">
 	                <h3>Contact us</h3>

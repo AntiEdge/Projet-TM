@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "";
+$password = "root";
 
 try {
 	$db = new PDO("mysql:host=$servername;dbname=projettm", $username, $password);
@@ -19,7 +19,7 @@ catch(PDOException $e)
 		private $host = 'localhost';
 		private $dbName = 'projettm';
 		private $user = 'root';
-		private $pass = '';
+		private $pass = 'root';
 
 		public function connect() {
 			try {
