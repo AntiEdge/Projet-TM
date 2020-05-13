@@ -9,55 +9,107 @@ require_once("includes/debut.php");
 
 ?>
 
-<body>
+<!--<body>-->
 
-	<?php
-		require_once("includes/menu.php");
-	?>
 
-	<html>
+
+<!DOCTYPE html>
+<html>
 	<head>
 		<title>Access Google Maps API in PHP</title>
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<!--	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script type="text/javascript" src="js/googlemap.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+
+
 		<style type="text/css">
-			.container {
-				height: 450px;
-			}
-			#map {
-				width: 100%;
-				height: 100%;
-				border: 1px solid blue;
-			}
+		.leftside, .rightside{
+			height:100vh;
+			width:100%;
+		}
+
+		.leftside {
+			background: red;
+		}
 			#data, #allData {
 				display: none;
 			}
+			.list-group{
+				overflow: scroll;
+				max-height: 100vh;
+			}
+
+			@media screen and (min-width:768px){
+				.rightside, .leftside{
+					height: 100vh;
+
+				}
+			}
 		</style>
+
+
 	</head>
 	<body>
-		<div class="container">
-			<center><h1>Afficher les membres sur la Map</h1></center>
+		<?php
+			require 'includes/vile.php';
+			$ville = new ville;
+// récupère toutes les villes qui n'ont pas encore de lat et lng.
+			$coll = $ville->getCitysBlankLatLng();
+// Encode au format json ce qui est retourne.
+			$coll = json_encode($coll, true);
+// L'on renvoi les données en json pour être interprêté par javascript.
+			echo '<div id="data">' . $coll . '</div>';
 
-			<?php
-				require 'includes/vile.php';
-				$ville = new ville;
-	// récupère toutes les villes qui n'ont pas encore de lat et lng.
-				$coll = $ville->getCitysBlankLatLng();
-	// Encode au format json ce qui est retourne.
-				$coll = json_encode($coll, true);
-	// L'on renvoi les données en json pour être interprêté par javascript.
-				echo '<div id="data">' . $coll . '</div>';
+			$allData = $ville->getAllCitys();
+			$allData = json_encode($allData, true);
+			echo '<div id="allData">' . $allData . '</div>';
 
-				$allData = $ville->getAllCitys();
-				$allData = json_encode($allData, true);
-				echo '<div id="allData">' . $allData . '</div>';
-			 ?>
-			 <!-- C'est ici qu'on affiche la map grace au div -->
-			<div id="map"></div>
-		</div>
+		 ?>
+
+	<?php
+			require_once("includes/menu.php");
+	?>
+
+
+<!--mettre no gutters pour ne pas avoir de bord sur les côté et évite une page trop grande-->
+	<div class="row no-gutters">
+			<div class="col-md-3 no-gutters">
+					<div class="leftside">
+						<div id="searchList">
+							<div class="list-group" id="test">
+
+
+							</div>
+						</div>
+					</div>
+
+			</div>
+
+			<div class="col-md-9 no-gutters order-first order-md-last">
+
+				<div class="rightside"><div id="map"style=height:100%; width:100% ></div></div>
+			</div>
+
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	</body>
 	<!-- Script qui fait appel aux services de Google Api afin d'utiliser les fonctions de la map. grace à un API -->
 	<!-- async: demande au nav de charger le reste du site pendant le chargement de maps javascript api. a la fin appendChild
@@ -66,4 +118,9 @@ require_once("includes/debut.php");
 	<script async defer
 	    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7e9DqluJecLSL2w7QlE0hddPluhX42Jo&callback=loadMap">
 	</script>
-	</html>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.js"></script>
+	<script type="text/javascript" src="js/googlemap.js"></script>
+</html>
