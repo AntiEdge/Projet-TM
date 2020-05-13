@@ -48,7 +48,7 @@ if(!isset($voir_utilisateur['membre_id'])){
 
 	<div class="container">
   		<div class="row">
-			<div class="col-sm-12">
+			<div class="col">
 				<div class="membres--corps">
 					<div>
 						Pseudo : <?= $voir_utilisateur['membre_pseudo'] ?>
