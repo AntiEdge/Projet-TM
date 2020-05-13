@@ -110,6 +110,12 @@ body {
 
 }
 
+.form-profil {
+
+  text-align : center;
+
+}
+
 /*CSS Tchat*/
 
 #left-col, #right-col {
@@ -474,3 +480,15 @@ body{
         line-height: 70px;
     }
 }
+
+img.rounded-corners{
+  width: 20%;
+   border-radius: 30px;
+   cursor : pointer;
+   padding : 10px;
+ }
+
+ img.rounded-corners:hover{
+    border-radius: 30px;
+    box-shadow: 0 5px 5px rgba( 0, 0, 0, .3);
+  }

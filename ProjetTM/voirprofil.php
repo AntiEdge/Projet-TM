@@ -187,7 +187,7 @@ if(!empty($_POST)){
 				</div>
 				<?php if(isset($_SESSION['id'])){ ?>
 				<div>
-					<form method="post">
+					<form method="post" class="form-profil">
 						<?php if(!isset($voir_utilisateur['statut'])){ ?>
 							<input type="submit" class="btn-user" name="user-ajouter" value="Ajouter">
 						<?php }elseif(isset($voir_utilisateur['statut']) && $voir_utilisateur['id_demandeur'] == $_SESSION['id'] && !isset($voir_utilisateur['id_bloqueur']) && $voir_utilisateur['statut']<>3){ ?>

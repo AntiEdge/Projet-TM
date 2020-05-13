@@ -39,7 +39,7 @@ if(!isset($voir_utilisateur['membre_id'])){
 ?>
 
 <body>
-	
+
 	<?php
 		require_once("includes/menu.php"); //Menu bar
 	?>
@@ -48,7 +48,7 @@ if(!isset($voir_utilisateur['membre_id'])){
 
 	<div class="container">
   		<div class="row">
-			<div class="col-sm-12"> 
+			<div class="col-sm-12">
 				<div class="membres--corps">
 					<div>
 						Pseudo : <?= $voir_utilisateur['membre_pseudo'] ?>
@@ -59,6 +59,15 @@ if(!isset($voir_utilisateur['membre_id'])){
 				</div>
 			</div>
   		</div>
+			<div class="row">
+				<div class="container text-center">
+				  <div class="row">
+				    <div class="col">
+				      <img src="img/givemask.png" id="givemask" class="img-responsive rounded-corners" alt="Image">
+				    </div>
+				  </div>
+				</div>
+			</div>
 	</div>
 
 </body>

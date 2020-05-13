@@ -69,6 +69,7 @@ require_once("includes/debut.php");
    img.rounded-corners{
       border-radius: 30px;
       cursor : pointer;
+      height: auto;
     }
 
     img.rounded-corners:hover{
