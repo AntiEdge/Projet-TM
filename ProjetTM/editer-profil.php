@@ -51,7 +51,7 @@ if(!empty($_POST)){
 	    $i = 0;
 	    $pseudo=$_POST['pseudo'];
 	    $email = $_POST['mail'];
-		
+
 	    //Vérification du pseudo
 	    $query=$db->prepare('SELECT COUNT(*) AS nbr FROM membres WHERE membre_pseudo =:pseudo AND membre_id <> :id');
 	    $query->bindValue(':pseudo',$pseudo, PDO::PARAM_STR);
@@ -80,7 +80,7 @@ if(!empty($_POST)){
 	    $query->execute();
 	    $mail_free=($query->fetchColumn()==0)?1:0;
 	    $query->CloseCursor();
-	    
+
 	    if(!$mail_free)
 	    {
 	        $email_erreur1 = "Votre adresse email est déjà utilisée par un membre";
@@ -92,7 +92,7 @@ if(!empty($_POST)){
 	        $email_erreur2 = "Votre adresse E-Mail n'a pas un format valide";
 	        $i++;
 	    }
-	 
+
 	    if ($i==0)
 	    {
 	    	//Update le membre avec les nouvelles données
@@ -110,7 +110,7 @@ if(!empty($_POST)){
 	        echo'<p>'.$pseudo_erreur2.'</p>';
 	        echo'<p>'.$email_erreur1.'</p>';
 	        echo'<p>'.$email_erreur2.'</p>';
-	       
+
 	        echo'<p>Cliquez <a href="./editer-profil.php">ici</a> pour recommencer</p>';
 	    }
 
@@ -120,7 +120,7 @@ if(!empty($_POST)){
 ?>
 
 <body>
-	
+
 	<?php
 		require_once("includes/menu.php"); //Menu bar
 	?>
@@ -129,7 +129,7 @@ if(!empty($_POST)){
 
 	<div class="container">
   		<div class="row">
-			<div class="col-sm-12"> 
+			<div class="col-sm-12">
 				<div class="membres--corps">
 					<form method="post">
 						<div>
@@ -144,7 +144,7 @@ if(!empty($_POST)){
 							?>
 							<label>	Pseudo : </label>
 
-								<input type="text"  name="pseudo" value="<?= $pseudo ?>">
+								<input type="text"  name="pseudo" value="<?= $pseudo ?>" style="width: 235px;">
 
 						</div>
 						<div>
@@ -160,11 +160,11 @@ if(!empty($_POST)){
 							<br/>
 							<label> E-Mail : </label>
 
-								<input type="text" name="mail" value="<?= $mail ?>">
-							
+								<input type="text" name="mail" value="<?= $mail ?>" style="width: 235px;">
+
 						</div>
 						<br/>
-						<input type="submit" name="modifier" value="Modifier">
+						<input type="submit" class="btn-user" name="modifier" value="Modifier">
 					</form>
 				</div>
 			</div>

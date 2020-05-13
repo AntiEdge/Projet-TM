@@ -19,28 +19,43 @@ require_once("includes/menu.php");
 
 if (empty($_POST['pseudo'])) // Si on la variable est vide, on peut considérer qu'on est sur la page de formulaire
 {
-	echo '<div class="register">
-    			<h1>Inscription</h1>
-    			<form action="register.php" method="post" autocomplete="off">
-    				<label for="pseudo">
-    					<i class="fas fa-user"></i>
-    				</label>
-    				<input type="text" name="pseudo" placeholder="Pseudo" id="pseudo" required>
-    				<label for="password">
-    					<i class="fas fa-lock"></i>
-    				</label>
-    				<input type="password" name="password" placeholder="Password" id="password" required>
-            <label for="password">
-    					<i class="fas fa-lock"></i>
-    				</label>
-    				<input type="password" name="confirm" placeholder="Confirm Password" id="confirm" required>
-    				<label for="email">
-    					<i class="fas fa-envelope"></i>
-    				</label>
-    				<input type="email" name="email" placeholder="E-mail" id="email" required>
-    				<input type="submit" value="S\'inscrire">
-    			</form>
-    		</div>';
+
+  echo '<body>
+      <div class="registration-form">
+          <form action="register.php" method="post" autocomplete="off">
+              <div class="form-icon">
+                  <span><i class="icon icon-user"></i></span>
+              </div>
+              <div class="form-group">
+                  <input type="text" class="form-control item" id="pseudo" name="pseudo" placeholder="Username">
+              </div>
+              <div class="form-group">
+                  <input type="password" class="form-control item" id="password" name="password" placeholder="Password">
+              </div>
+              <div class="form-group">
+                  <input type="password" class="form-control item" id="confirm" name="confirm" placeholder="Confirm password">
+              </div>
+              <div class="form-group">
+                  <input type="text" class="form-control item" id="email" name="email" placeholder="Email">
+              </div>
+              <div class="form-group">
+                  <input type="submit" value="S\'inscrire" class="btn btn-block create-account">
+              </div>
+          </form>
+          <div class="social-media">
+              <h5>Sign up with social media</h5>
+              <div class="social-icons">
+                  <a href="#"><i class="icon-social-facebook" title="Facebook"></i></a>
+                  <a href="#"><i class="icon-social-google" title="Google"></i></a>
+                  <a href="#"><i class="icon-social-twitter" title="Twitter"></i></a>
+              </div>
+          </div>
+      </div>
+      <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+      <script src="assets/js/script.js"></script>
+      </form>
+      </body>';
 
 
 } //Fin de la partie formulaire

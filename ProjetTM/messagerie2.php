@@ -138,8 +138,6 @@ if (isset($receveur['membre_id'])) {
 										var premierID = $('#messages p:last').attr('id');
 										var id_receveur =  <?php echo $id_receveur; ?>// on récupère l'id le plus récent
 
-									 console.log('go');
-
 										$.ajax({
 												url : "charger.php?id=" + premierID + '&idd=' + id_receveur, // on passe l'id le plus récent au fichier de chargement
 												type : "GET",

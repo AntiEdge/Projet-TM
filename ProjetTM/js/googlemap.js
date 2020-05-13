@@ -112,7 +112,7 @@ function codeAddress(vdata) {
 // a la fonction action.php qui inscrit les éléments dans la base
 function updateCityWithLatLng(points) {
 	$.ajax({
-		url:"/includes/action.php",
+		url:"includes/action.php",
 		method:"post",
 		data: points,
 		success: function(res) {

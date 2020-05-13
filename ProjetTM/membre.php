@@ -39,7 +39,7 @@ else
 	    	<?php foreach($afficher_membre as $am){?>
 
 				<div class="col-sm-3">
-					<div class="membres--corps">
+					<div class="membres-corps">
 						<div>
 							<?= $am['membre_pseudo'] ?>
 						</div>
